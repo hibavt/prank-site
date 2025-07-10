@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading image...</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+    .alert-box {
+      background-color: #1f1f1f;
+      border: 2px solid red;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px red;
+    }
+    .alert-title {
+      font-size: 1.5em;
+      color: red;
+    }
+    .alert-message {
+      margin-top: 10px;
+      font-size: 1.1em;
+    }
+    .scan-fingerprint {
+      margin-top: 30px;
+      font-size: 1em;
+      color: #ccc;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+    .fingerprint {
+      width: 100px;
+      margin: 20px auto;
+      animation: glitch 0.5s infinite;
+    }
+    @keyframes glitch {
+      0% { filter: hue-rotate(0deg); }
+      50% { filter: hue-rotate(90deg); }
+      100% { filter: hue-rotate(0deg); }
+    }
+    #reveal {
+      display: none;
+      color: lime;
+      font-size: 2em;
+      margin-top: 30vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="main">
+    <div class="alert-box">
+      <div class="alert-title">⚠️ SYSTEM ALERT ⚠️</div>
+      <div class="alert-message">
+        Unauthorized access detected on your device.<br>
+        Attempting to lock phone and erase data...
+      </div>
+    </div>
+    <div class="scan-fingerprint">Scan fingerprint to cancel</div>
+    <img class="fingerprint" src="https://www.pngall.com/wp-content/uploads/5/Fingerprint-PNG-Image.png" />
+    <audio id="beep" src="https://www.myinstants.com/media/sounds/siren_1.mp3"></audio>
+  </div>
+  <div id="reveal">😆 YOU'VE BEEN PRANKED!</div>
+  <script>
+    const beep = document.getElementById('beep');
+    function startPrank() {
+      let alerts = 0;
+      beep.play();
+      let popup = setInterval(() => {
+        alert("⚠️ ALERT: Malicious activity detected!");
+        alerts++;
+        if (alerts >= 3) {
+          clearInterval(popup);
+          revealTruth();
+        }
+      }, 1500);
+    }
+    function revealTruth() {
+      document.getElementById('main').style.display = 'none';
+      document.getElementById('reveal').style.display = 'block';
+    }
+    window.onload = () => {
+      setTimeout(startPrank, 2000);
+    };
+  </script>
+</body>
+</html>
